@@ -1,27 +1,21 @@
+import Home from "@/components/views/Home";
+import { SessionExtended } from "@/types/Auth";
 import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 
 export default function IndexPage() {
-  return null;
+  return <Home />;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const token = req.cookies["token"];
+  const session = await getSession(context);
 
-  const isTokenValid = (token?: string) => {
-    if (!token) return false;
-
+  const isAccessTokenValid = (session: SessionExtended | null) => {
+    if (!session || !session.accessToken) return false;
     return true;
   };
 
-  if (isTokenValid(token)) {
-    return {
-      redirect: {
-        destination: "/home",
-        permanent: false,
-      },
-    };
-  } else {
+  if (!isAccessTokenValid(session)) {
     return {
       redirect: {
         destination: "/auth/login",
@@ -29,4 +23,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
+
+  return {
+    props: {},
+  };
 };

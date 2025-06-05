@@ -13,6 +13,10 @@ interface ILogin {
     password: string,
 }
 
+interface UserExtended extends User {
+    accessToken?: string;
+}
+
 interface SessionExtended extends Session {
     accessToken?: string;
 }
@@ -21,4 +25,4 @@ interface JWTExtended extends JWT {
     user?: UserExtended;
 }
 
-export type { SessionExtended, ILogin, IRegister, User, JWTExtended };
+export type { SessionExtended, ILogin, IRegister, User, JWTExtended, UserExtended };
