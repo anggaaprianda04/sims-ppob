@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { Poppins } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +29,9 @@ export default function App({
     <main className={poppins.className}>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
         </QueryClientProvider>
       </SessionProvider>
     </main>

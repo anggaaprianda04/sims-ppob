@@ -7,6 +7,7 @@ const informationServices = {
             Authorization: `Bearer ${token}`,
         },
     }),
+    banner: () => instance.get(`${environment.API_URL}/banner`),
 }
 
 export default informationServices;

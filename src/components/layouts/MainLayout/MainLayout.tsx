@@ -10,7 +10,7 @@ interface Proptypes {
 const MainLayout = (props: Proptypes) => {
   const { title, children } = props;
   return (
-    <div className="h-screen w-full overflow-y-auto p-8">
+    <div className="h-screen w-full overflow-y-auto  p-8">
       <PageHead title={title} />
       <Navbar />
       {children}
