@@ -1,12 +1,13 @@
 import environment from "@/config/environment";
 import instance from "@/libs/instance";
-import { ILogin } from "@/types/Auth";
+import { ILogin, IRegister } from "@/types/Auth";
 
 const membershipServices = {
-    login: (payload: ILogin) => instance.post(`${environment.API_URL}/login`, payload),  // Menggunakan path relatif
-    getProfile: (token: string) => instance.get(`${environment.API_URL}/profile`, {   // Menggunakan path relatif
+    login: (payload: ILogin) => instance.post(`${environment.API_URL}/login`, payload),
+    register: (payload: IRegister) => instance.post(`${environment.API_URL}/registration`, payload),
+    getProfile: (token: string) => instance.get(`${environment.API_URL}/profile`, {
         headers: {
-            Authorization: `Bearer ${token}`,  // Menambahkan token pada header
+            Authorization: `Bearer ${token}`,
         },
     }),
 }

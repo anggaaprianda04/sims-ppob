@@ -5,6 +5,7 @@ import { IBanner, IInformation } from "@/types/Information";
 import CardBanner from "@/components/commons/CardBanner";
 import { useAppSelector } from "@/store/store";
 import CardHeader from "@/components/commons/CardHeader/CardHeader";
+import { signOut } from "next-auth/react";
 
 const Home = () => {
   const { dataService, dataBanner } = UseHome();
@@ -12,6 +13,7 @@ const Home = () => {
 
   return (
     <MainLayout title="SIMS PPOB | Home">
+      <button onClick={() => signOut()}>keluar</button>
       <CardHeader valueBalance={balance as unknown as number} />
       <div className="container mx-auto mt-6 max-w-screen-2xl flex flex-wrap">
         {dataService?.map((item: IInformation) => (

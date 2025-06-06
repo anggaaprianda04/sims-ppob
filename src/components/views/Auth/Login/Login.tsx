@@ -6,7 +6,6 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import useLogin from "./useLogin";
 import { Controller } from "react-hook-form";
-import { useSession } from "next-auth/react";
 
 const Login = () => {
   const {
@@ -18,10 +17,6 @@ const Login = () => {
     isVisible,
     toggleVisibility,
   } = useLogin();
-
-  const { data } = useSession();
-
-  console.log(data?.user);
 
   return (
     <div>

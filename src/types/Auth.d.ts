@@ -1,13 +1,5 @@
 import { User, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
-
-interface IRegister {
-    email: string,
-    first_name: string,
-    last_name: string,
-    password: string,
-}
-
 interface IUser {
     accessToken: string;
     email: string;
@@ -18,6 +10,13 @@ interface IUser {
 
 interface ILogin {
     email: string,
+    password: string,
+}
+
+interface IRegister {
+    email: string,
+    first_name: string,
+    last_name: string,
     password: string,
 }
 
