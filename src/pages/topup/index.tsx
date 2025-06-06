@@ -4,7 +4,7 @@ import React from "react";
 
 const TopupPage = () => {
   return (
-    <MainLayout title="SIMS PPOB | Topup">
+    <MainLayout>
       <Topup />
     </MainLayout>
   );

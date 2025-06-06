@@ -3,7 +3,7 @@ import Register from "@/components/views/Auth/Register";
 
 const RegisterPage = () => {
   return (
-    <AuthLayout title="SIMS PPOB | Register">
+    <AuthLayout>
       <Register />
     </AuthLayout>
   );

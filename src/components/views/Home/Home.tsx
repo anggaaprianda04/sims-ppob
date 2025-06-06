@@ -12,7 +12,7 @@ const Home = () => {
   const balance = useAppSelector((state) => state.balance.value);
 
   return (
-    <MainLayout title="SIMS PPOB | Home">
+    <MainLayout>
       <button onClick={() => signOut()}>keluar</button>
       <CardHeader valueBalance={balance as unknown as number} />
       <div className="container mx-auto mt-6 max-w-screen-2xl flex flex-wrap">
