@@ -16,20 +16,16 @@ const CardHeader = (props: Proptypes) => {
   const { valueBalance } = props;
   const { showBalance, toggleVisibility, isLoadingBalance } = UseHome();
 
-  console.log("huhu", user?.profile_image);
-
-  const profileImageUrl =
-    user?.profile_image &&
-    user.profile_image !== "null" &&
-    user.profile_image !== "undefined"
-      ? `https://minio.nutech-integrasi.com/take-home-test/${user.profile_image}`
-      : "/images/profile-photo.png";
-
   return (
     <div className="container mx-auto py-3 flex justify-between items-center">
       <div className="flex w-full gap-6 mt-4 justify-between">
         <div className="flex flex-col gap-3 w-1/4">
-          <Image alt="profile" width={70} height={70} src={profileImageUrl} />
+          <Image
+            alt="profile"
+            width={70}
+            height={70}
+            src={user?.profile_image}
+          />
           <p className="text-xl font-medium">Selamat datang,</p>
           <p className="text-2xl font-bold">{user?.first_name}</p>
         </div>
