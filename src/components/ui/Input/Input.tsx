@@ -9,7 +9,7 @@ interface Proptypes {
   toggleVisibility?: () => void;
   isInvalid?: boolean;
   errorMessage?: string;
-  value?: string;
+  value?: string | number;
   onChange?: () => void;
 }
 

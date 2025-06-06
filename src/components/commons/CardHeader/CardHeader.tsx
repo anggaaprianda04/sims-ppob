@@ -17,7 +17,7 @@ const CardHeader = (props: Proptypes) => {
   const { showBalance, toggleVisibility, isLoadingBalance } = UseHome();
 
   return (
-    <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <div className="container mx-auto py-3 flex justify-between items-center">
       <div className="flex w-full gap-6 mt-4 justify-between">
         <div className="flex flex-col gap-3 w-1/4">
           <Image

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import balanceReducer from "../features/balance/balanceSlice";
+import modalReducer from "../features/modal/modalSlice";
 
 export const store = configureStore({
     reducer: {
         balance: balanceReducer,
+        modal: modalReducer,
     }
 })
 
