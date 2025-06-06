@@ -1,10 +1,5 @@
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
 import Link from "next/link";
 import React from "react";
-import { IoPersonSharp } from "react-icons/io5";
-import { MdOutlineAlternateEmail } from "react-icons/md";
-import { TbLockPassword } from "react-icons/tb";
 
 const Register = () => {
   return (
@@ -15,7 +10,7 @@ const Register = () => {
             Lengkapi data untuk <br /> membuat akun
           </h1>
         </div>
-        <Input
+        {/* <Input
           type="email"
           placeholder="Masukan email anda"
           icon={<MdOutlineAlternateEmail />}
@@ -35,9 +30,9 @@ const Register = () => {
           type="password"
           placeholder="Konfirmasi password"
           icon={<TbLockPassword />}
-        />
+        /> */}
       </form>
-      <Button title="Registrasi" />
+      {/* <Button title="Registrasi" /> */}
       <p className="text-xs mt-5 text-gray-600">
         Sudah punya akun? login{" "}
         <Link href="/auth/login">

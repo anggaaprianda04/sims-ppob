@@ -8,6 +8,14 @@ interface IRegister {
     password: string,
 }
 
+interface IUser {
+    accessToken: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string;
+}
+
 interface ILogin {
     email: string,
     password: string,
@@ -25,4 +33,4 @@ interface JWTExtended extends JWT {
     user?: UserExtended;
 }
 
-export type { SessionExtended, ILogin, IRegister, User, JWTExtended, UserExtended };
+export type { SessionExtended, ILogin, IRegister, User, JWTExtended, UserExtended, IUser };

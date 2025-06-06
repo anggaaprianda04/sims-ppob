@@ -39,14 +39,10 @@ const useLogin = () => {
       callbackUrl,
     });
 
-    console.log("SignIn Result:", result);
-
     if (result?.error) {
       console.error("Login failed:", result.error);
       throw new Error("Login failed");
     }
-
-    console.log("Login success:", result);
 
     return result;
   };
@@ -63,11 +59,8 @@ const useLogin = () => {
   });
 
   const handleLogin = (data: ILogin) => {
-    console.log("x", data);
     mutateLogin(data);
   };
-
-  console.log("Validation errors:", errors);
 
   return {
     isVisible,

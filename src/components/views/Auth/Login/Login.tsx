@@ -21,7 +21,7 @@ const Login = () => {
 
   const { data } = useSession();
 
-  console.log("ada nggak", data);
+  console.log(data?.user);
 
   return (
     <div>

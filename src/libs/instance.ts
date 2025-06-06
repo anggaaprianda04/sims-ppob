@@ -17,7 +17,6 @@ instance.interceptors.request.use(
     async (request) => {
         const session: SessionExtended | null = await getSession();
         if (session && session.accessToken) {
-            console.log("Session found:", session);  // Debugging log
             request.headers.Authorization = `Bearer ${session.accessToken}`;
         } else {
             console.warn("No session or access token found");
@@ -34,7 +33,7 @@ instance.interceptors.response.use(
     async (error) => {
         if (error.response && error.response.status === 401) {
             console.error("Unauthorized error. Signing out...");
-            await signOut({ callbackUrl: "/login" });  // Redirect ke halaman login
+            await signOut({ callbackUrl: "/auth/login" });  // Redirect ke halaman login
         }
         return Promise.reject(error);
     }

@@ -1,6 +1,6 @@
 // middleware.ts
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { JWTExtended } from "./types/Auth";
 
@@ -10,19 +10,18 @@ export async function middleware(request: NextRequest) {
         secret: process.env.NEXTAUTH_SECRET,
     });
     const { pathname } = request.nextUrl;
-
+    console.log('aa', token);
     // Jika ada accessToken, redirect ke halaman utama
-    if (token) {
-        if (pathname === "/auth/login" || pathname === "/auth/register") {
-            // Jika pengguna sudah login, jangan izinkan mereka mengakses /auth/login
-            return NextResponse.redirect(new URL("/", request.url));
+    if (!token?.user?.accessToken) {
+        if (pathname !== "/auth/login" && pathname !== "/auth/register") {
+            return NextResponse.redirect(new URL("/auth/login", request.url)); // Redirect ke login
         }
     } else {
-        if (pathname !== "/auth/login" && pathname !== "/auth/register") {
-            // Jika tidak ada accessToken, arahkan ke halaman login
-            return NextResponse.redirect(new URL("/auth/login", request.url));
+        if (pathname === "/auth/login" || pathname === "/auth/register") {
+            return NextResponse.redirect(new URL("/", request.url)); // Redirect ke halaman utama
         }
     }
-
-    return NextResponse.next();
+}
+export const config = {
+    matcher: ["/auth/:path*"],
 }

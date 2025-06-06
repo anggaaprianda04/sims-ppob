@@ -1,7 +1,7 @@
-import authServices from "@/services/auth.service";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWTExtended, SessionExtended, UserExtended } from "@/types/Auth";
+import membershipServices from "@/services/membership.service";
 
 export default NextAuth({
     session: {
@@ -25,16 +25,17 @@ export default NextAuth({
                     password: string;
                 }
 
-                const result = await authServices.login({
+                const result = await membershipServices.login({
                     email,
                     password,
                 });
 
                 const accessToken = result.data.data.token;
-                const me = await authServices.getProfile(accessToken);
+                const me = await membershipServices.getProfile(accessToken);
                 const user = me.data.data;
 
-                if (accessToken && result.status === 200 && user.email && me.data.status === 0) {
+
+                if (accessToken && result.status === 200 && me.data.status === 0) {
                     user.accessToken = accessToken;
                     return user;
                 } else {

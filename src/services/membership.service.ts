@@ -2,7 +2,7 @@ import environment from "@/config/environment";
 import instance from "@/libs/instance";
 import { ILogin } from "@/types/Auth";
 
-const authServices = {
+const membershipServices = {
     login: (payload: ILogin) => instance.post(`${environment.API_URL}/login`, payload),  // Menggunakan path relatif
     getProfile: (token: string) => instance.get(`${environment.API_URL}/profile`, {   // Menggunakan path relatif
         headers: {
@@ -11,4 +11,4 @@ const authServices = {
     }),
 }
 
-export default authServices;
+export default membershipServices;
