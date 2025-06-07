@@ -10,8 +10,8 @@ export async function middleware(request: NextRequest) {
         secret: process.env.NEXTAUTH_SECRET,
     });
     const { pathname } = request.nextUrl;
-    console.log('aa', token);
-    if (!token?.user?.accessToken) {
+    // console.log('aa', token?.email);
+    if (typeof token?.email === "undefined") {
         if (
             pathname !== "/auth/login" &&
             pathname !== "/auth/register"
