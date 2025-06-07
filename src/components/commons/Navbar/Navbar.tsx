@@ -10,7 +10,7 @@ const Navbar = () => {
         {/* Logo/Brand */}
         <Link href="/">
           <div className="flex items-center">
-            <Image src="/images/Logo.png" alt="logo" width={27} height={25} />
+            <Image src="/images/logo.png" alt="logo" width={27} height={25} />
             <span className="ml-2 text-lg font-semibold text-gray-800">
               SIMS PPOB
             </span>

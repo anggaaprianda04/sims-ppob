@@ -16,7 +16,7 @@ const AuthLayout = (props: Proptypes) => {
         <div className="flex w-full items-center justify-center gap-8 px-4">
           <div className="flex flex-col max-w-xl justify-center items-center w-full md:w-auto">
             <div className="flex gap-2 items-center mb-6">
-              <Image src="/images/Logo.png" alt="logo" width={27} height={25} />
+              <Image src="/images/logo.png" alt="logo" width={27} height={25} />
               <h1 className="font-bold text-xl">SIMS PPOB</h1>
             </div>
             <div className="text-center w-full">{children}</div>
@@ -24,7 +24,7 @@ const AuthLayout = (props: Proptypes) => {
 
           <div className="hidden md:flex flex-1 justify-center relative max-h-[700px] w-full max-w-md">
             <Image
-              src="/images/ilustrasi_Login.png"
+              src="/images/ilustrasi_login.png"
               className="object-contain"
               alt="ilustrasi"
               width={700}

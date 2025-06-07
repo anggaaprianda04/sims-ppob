@@ -17,7 +17,6 @@ export async function middleware(request: NextRequest) {
             pathname !== "/auth/register"
         ) {
             const loginUrl = new URL("/auth/login", request.url);
-            loginUrl.searchParams.set("callbackUrl", pathname); // biar bisa redirect balik
             return NextResponse.redirect(loginUrl);
         }
     } else {
