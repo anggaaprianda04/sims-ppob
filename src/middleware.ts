@@ -11,16 +11,22 @@ export async function middleware(request: NextRequest) {
     });
     const { pathname } = request.nextUrl;
     console.log('aa', token);
-    // Jika ada accessToken, redirect ke halaman utama
     if (!token?.user?.accessToken) {
-        if (pathname !== "/auth/login" && pathname !== "/auth/register") {
-            return NextResponse.redirect(new URL("/auth/login", request.url)); // Redirect ke login
+        if (
+            pathname !== "/auth/login" &&
+            pathname !== "/auth/register"
+        ) {
+            return NextResponse.redirect(new URL("/auth/login", request.url));
         }
     } else {
-        if (pathname === "/auth/login" || pathname === "/auth/register") {
-            return NextResponse.redirect(new URL("/", request.url)); // Redirect ke halaman utama
+        if (
+            pathname === "/auth/login" ||
+            pathname === "/auth/register"
+        ) {
+            return NextResponse.redirect(new URL("/", request.url));
         }
     }
+
 }
 export const config = {
     matcher: ["/auth/:path*"],
