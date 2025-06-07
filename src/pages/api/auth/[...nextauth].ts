@@ -8,6 +8,7 @@ export default NextAuth({
         strategy: "jwt",
         maxAge: 60 * 60 * 24,
     },
+    useSecureCookies: true,
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
