@@ -11,12 +11,14 @@ export async function middleware(request: NextRequest) {
     });
     const { pathname } = request.nextUrl;
     // console.log('aa', token?.email);
-    if (typeof token?.email === "undefined") {
+    if (!token?.user?.accessToken) {
         if (
             pathname !== "/auth/login" &&
             pathname !== "/auth/register"
         ) {
-            return NextResponse.redirect(new URL("/auth/login", request.url));
+            const loginUrl = new URL("/auth/login", request.url);
+            loginUrl.searchParams.set("callbackUrl", pathname); // biar bisa redirect balik
+            return NextResponse.redirect(loginUrl);
         }
     } else {
         if (
@@ -26,8 +28,8 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL("/", request.url));
         }
     }
-
+    return NextResponse.next();
 }
 export const config = {
-    matcher: ["/auth/:path*"],
+    matcher: ["/((?!_next|api|auth/login|auth/register).*)"],
 }
