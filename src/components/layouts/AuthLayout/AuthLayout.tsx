@@ -24,7 +24,7 @@ const AuthLayout = (props: Proptypes) => {
 
           <div className="hidden md:flex flex-1 justify-center relative max-h-[700px] w-full max-w-md">
             <Image
-              src="/images/ilustrasi_login.png"
+              src="/images/ilustrasi.png"
               className="object-contain"
               alt="ilustrasi"
               width={700}
