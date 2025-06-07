@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    unoptimized: false,
     remotePatterns: [
       {
         hostname: "minio.nutech-integrasi.com",

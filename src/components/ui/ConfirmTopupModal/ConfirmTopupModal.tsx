@@ -18,7 +18,7 @@ const ConfirmTopupModal = (props: Proptypes) => {
       <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
         <div className="flex flex-col items-center gap-4">
           <div className="bg-red-100 p-3 rounded-full">
-            <Image src="/images/Logo.png" alt="logo" width={40} height={40} />
+            <Image src="/images/logo.png" alt="logo" width={40} height={40} />
           </div>
           <p className="text-gray-700">Anda yakin untuk Top Up sebesar</p>
           <h2 className="text-2xl font-bold text-black">
