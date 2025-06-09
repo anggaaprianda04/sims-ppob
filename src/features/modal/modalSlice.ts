@@ -1,41 +1,60 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type ModalType = "confirm" | "success" | "error" | null;
+
 interface ModalState {
-  isTopupModalOpen: boolean;
-  topupAmount: number | null;
-  isSuccessTopupOpen: boolean; // ✅ NEW
+  isOpen: boolean;
+  type: ModalType;
+  title: string;
+  message: string;
+  amount?: number;
+  redirectHome?: boolean;
 }
 
 const initialState: ModalState = {
-  isTopupModalOpen: false,
-  topupAmount: null,
-  isSuccessTopupOpen: false, // ✅ NEW
+  isOpen: false,
+  type: null,
+  title: "",
+  message: "",
+  amount: 0,
+  redirectHome: false,
 };
 
 const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openTopupModal(state, action: PayloadAction<number>) {
-      state.isTopupModalOpen = true;
-      state.topupAmount = action.payload;
+    openModal: (
+      state,
+      action: PayloadAction<Partial<ModalState> & { type: ModalType; title: string; message: string }>
+    ) => {
+      const {
+        type,
+        title,
+        message,
+        amount = 0,
+        redirectHome = false,
+      } = action.payload;
+
+      state.isOpen = true;
+      state.type = type;
+      state.title = title;
+      state.message = message;
+      state.amount = amount;
+      state.redirectHome = redirectHome;
     },
-    closeTopupModal(state) {
-      state.isTopupModalOpen = false;
-      state.topupAmount = null;
+    closeModal: (state) => {
+      state.isOpen = false;
+      state.type = null;
+      state.title = "";
+      state.message = "";
+      state.amount = 0;
+      state.redirectHome = false;
     },
-    openSuccessTopupModal(state) {
-      state.isSuccessTopupOpen = true;
-    },
-    closeSuccessTopupModal(state) {
-      state.isSuccessTopupOpen = false;
-    },
-    setSuccessTopupAmount(state, action: PayloadAction<number>) {
-      state.topupAmount = action.payload;
-    }
   },
 });
 
-export const { openTopupModal, closeTopupModal, openSuccessTopupModal,
-  closeSuccessTopupModal, setSuccessTopupAmount } = modalSlice.actions;
+
+export const { openModal, closeModal } = modalSlice.actions;
 export default modalSlice.reducer;
+

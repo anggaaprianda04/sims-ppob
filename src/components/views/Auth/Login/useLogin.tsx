@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { ILogin } from "@/types/Auth";
+import { useDispatch } from "react-redux";
+import { showToast } from "@/features/toaster/toastSlice";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -19,6 +21,7 @@ const useLogin = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const callbackUrl: string = (router.query.callbackUrl as string) || "/";
 
@@ -33,8 +36,7 @@ const useLogin = () => {
 
   const loginService = async (payload: ILogin) => {
     const result = await signIn("credentials", {
-      email: payload.email,
-      password: payload.password,
+      ...payload,
       redirect: false,
       callbackUrl,
     });
@@ -51,10 +53,12 @@ const useLogin = () => {
     mutationFn: loginService,
     onError: (error: Error) => {
       console.log(error);
+      dispatch(showToast({ message: error.message, type: "error" }));
     },
     onSuccess() {
       reset();
       router.push(callbackUrl);
+      dispatch(showToast({ message: "Success Login", type: "success" }));
     },
   });
 

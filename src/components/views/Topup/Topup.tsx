@@ -7,22 +7,12 @@ import { Controller } from "react-hook-form";
 import { FaMoneyBillAlt } from "react-icons/fa";
 import UseTopup from "./useTopup";
 import CardTopup from "@/components/commons/CardTopup";
-import {
-  closeSuccessTopupModal,
-  closeTopupModal,
-  openTopupModal,
-} from "@/features/modal/modalSlice";
-import ConfirmTopupModal from "@/components/ui/ConfirmTopupModal";
-import SuccessTopupModal from "@/components/ui/SuccessTopupModal";
-import { useRouter } from "next/router";
+import { openModal } from "@/features/modal/modalSlice";
+import { confirmRef } from "@/hooks/useModalConfirm";
 
 const Topup = () => {
   const balance = useAppSelector((state) => state.balance.value);
   const dispatch = useAppDispatch();
-  const { isTopupModalOpen, topupAmount, isSuccessTopupOpen } = useAppSelector(
-    (state) => state.modal
-  );
-  const router = useRouter();
 
   const {
     control,
@@ -47,7 +37,7 @@ const Topup = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2 flex flex-col gap-4">
-            <form onSubmit={handleSubmit(handleTopup)}>
+            <form>
               <Controller
                 name="top_up_amount"
                 control={control}
@@ -65,7 +55,20 @@ const Topup = () => {
               />
               <Button
                 onClick={handleSubmit((data) => {
-                  dispatch(openTopupModal(Number(data.top_up_amount))); // simpan ke Redux
+                  const nominal = Number(data.top_up_amount);
+                  confirmRef.current = () => {
+                    handleTopup({ top_up_amount: nominal }); // ⬅️ ini fungsi yang akan dipanggil ketika user klik "Ya"
+                  };
+
+                  dispatch(
+                    openModal({
+                      type: "confirm",
+                      title: "Konfirmasi Top Up",
+                      message: "Anda yakin untuk Top Up sebesar",
+                      amount: Number(data.top_up_amount),
+                      redirectHome: false,
+                    })
+                  ); // simpan ke Redux
                 })}
                 disabled={
                   !!errors.top_up_amount || watch("top_up_amount") === undefined
@@ -89,20 +92,6 @@ const Topup = () => {
           </div>
         </div>
       </div>
-      <ConfirmTopupModal
-        isOpen={isTopupModalOpen}
-        amount={topupAmount ?? 0}
-        onClose={() => dispatch(closeTopupModal())}
-        onConfirm={() => {
-          handleSubmit(handleTopup)();
-          dispatch(closeTopupModal());
-        }}
-      />
-      <SuccessTopupModal
-        isOpen={isSuccessTopupOpen}
-        onClose={() => dispatch(closeSuccessTopupModal())}
-        onNavigate={() => router.push("/")} // klik tombol "kembali ke beranda"
-      ></SuccessTopupModal>
     </>
   );
 };

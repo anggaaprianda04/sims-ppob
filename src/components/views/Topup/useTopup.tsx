@@ -6,14 +6,11 @@ import transactionServices from "@/services/transaction.service";
 import { useSession } from "next-auth/react";
 import { IUser } from "@/types/Auth";
 import { useMutation } from "@tanstack/react-query";
-import {
-  closeTopupModal,
-  openSuccessTopupModal,
-  setSuccessTopupAmount,
-} from "@/features/modal/modalSlice";
-import { useAppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { openModal } from "@/features/modal/modalSlice";
+import { AxiosError } from "axios";
 
-const loginSchema = yup.object().shape({
+const topupSchema = yup.object().shape({
   top_up_amount: yup
     .number()
     .required("Please input topup")
@@ -24,7 +21,7 @@ const loginSchema = yup.object().shape({
 const UseTopup = () => {
   const { data } = useSession();
   const user = data?.user as IUser;
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -34,14 +31,15 @@ const UseTopup = () => {
     watch,
     setValue,
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(topupSchema),
+    defaultValues: {
+      top_up_amount: undefined,
+    },
   });
 
   const topupService = async (payload: ITopup) => {
     const result = await transactionServices.topup(user.accessToken, payload);
-    const { data } = result;
-    console.log("dad top", data);
-    return data.data.balance;
+    return result;
   };
 
   const {
@@ -50,14 +48,28 @@ const UseTopup = () => {
     isSuccess: isSuccessTopup,
   } = useMutation({
     mutationFn: topupService,
-    onError: (error: Error) => {
-      console.log(error);
+    onError: (error: AxiosError) => {
+      dispatch(
+        openModal({
+          type: "error",
+          title: "Top Up Gagal",
+          message: (error.response?.data as { message: string })?.message,
+          amount: JSON.parse(error.response?.config.data).top_up_amount,
+          redirectHome: true,
+        })
+      );
     },
-    onSuccess(_, variables) {
-      dispatch(setSuccessTopupAmount(Number(variables.top_up_amount))); // ✅ simpan sebelum reset
-      reset(); // form dikosongkan
-      dispatch(closeTopupModal());
-      dispatch(openSuccessTopupModal());
+    onSuccess: (data) => {
+      reset();
+      dispatch(
+        openModal({
+          type: "success",
+          title: "Top Up Berhasil",
+          message: data.data.message,
+          amount: JSON.parse(data.config.data).top_up_amount,
+          redirectHome: true,
+        })
+      );
     },
   });
 
