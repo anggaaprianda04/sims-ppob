@@ -106,7 +106,7 @@ const Register = () => {
             />
           )}
         />
-        <Button type="submit">
+        <Button disabled={isPendingRegister} type="submit">
           {isPendingRegister ? "Loading" : "Registrasi"}
         </Button>
       </form>

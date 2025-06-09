@@ -3,12 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { ITopup } from "@/types/Transaction";
 import transactionServices from "@/services/transaction.service";
-import { useSession } from "next-auth/react";
-import { IUser } from "@/types/Auth";
 import { useMutation } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "@/features/modal/modalSlice";
 import { AxiosError } from "axios";
+import { RootState } from "@/store/store";
 
 const topupSchema = yup.object().shape({
   top_up_amount: yup
@@ -19,9 +18,8 @@ const topupSchema = yup.object().shape({
 });
 
 const useTopup = () => {
-  const { data } = useSession();
-  const user = data?.user as IUser;
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.data);
 
   const {
     control,
@@ -38,7 +36,10 @@ const useTopup = () => {
   });
 
   const topupService = async (payload: ITopup) => {
-    const result = await transactionServices.topup(user.accessToken, payload);
+    const result = await transactionServices.topup(
+      user?.accessToken as string,
+      payload
+    );
     return result;
   };
 

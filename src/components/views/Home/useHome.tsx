@@ -1,17 +1,15 @@
 import { setBalance } from "@/features/balance/balanceSlice";
 import informationServices from "@/services/information.service";
 import transactionServices from "@/services/transaction.service";
-import { useAppDispatch } from "@/store/store";
-import { IUser } from "@/types/Auth";
+import { RootState, useAppDispatch } from "@/store/store";
 import { IBanner, IInformation } from "@/types/Information";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const useHome = () => {
   const [showBalance, setShowBalance] = useState(false);
-  const { data } = useSession();
-  const user = data?.user as IUser;
+  const user = useSelector((state: RootState) => state.user.data);
   const dispatch = useAppDispatch();
 
   const toggleVisibility = () => {
@@ -19,13 +17,17 @@ const useHome = () => {
   };
 
   const balanceService = async () => {
-    const result = await transactionServices.balance(user?.accessToken);
+    const result = await transactionServices.balance(
+      user?.accessToken as string
+    );
     const { data } = result;
     return data.data.balance;
   };
 
   const informationService = async () => {
-    const result = await informationServices.service(user?.accessToken);
+    const result = await informationServices.service(
+      user?.accessToken as string
+    );
     const { data } = result;
     return data.data;
   };

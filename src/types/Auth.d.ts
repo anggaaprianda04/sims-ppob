@@ -32,4 +32,6 @@ interface JWTExtended extends JWT {
     user?: UserExtended;
 }
 
-export type { SessionExtended, ILogin, IRegister, User, JWTExtended, UserExtended, IUser };
+type UpdateProfilePayload = Pick<IUser, "first_name" | "last_name">;
+
+export type { SessionExtended, ILogin, IRegister, User, JWTExtended, UserExtended, IUser, UpdateProfilePayload };

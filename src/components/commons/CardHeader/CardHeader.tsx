@@ -1,20 +1,21 @@
 import CurrencyFormatter from "@/components/ui/CurrencyFormatter";
 import UseHome from "@/components/views/Home/useHome";
-import { IUser } from "@/types/Auth";
-import { useSession } from "next-auth/react";
 import React from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface Proptypes {
   valueBalance: number;
 }
 
 const CardHeader = (props: Proptypes) => {
-  const { data } = useSession();
-  const user = data?.user as IUser;
+  const user = useSelector((state: RootState) => state.user.data);
   const { valueBalance } = props;
   const { showBalance, toggleVisibility, isLoadingBalance } = UseHome();
+
+  console.log(user?.profile_image);
 
   return (
     <div className="container mx-auto py-3 flex justify-between items-center">
@@ -24,7 +25,11 @@ const CardHeader = (props: Proptypes) => {
             alt="profile"
             width={70}
             height={70}
-            src={user?.profile_image}
+            src={
+              user?.profile_image && !user.profile_image.includes("null")
+                ? user.profile_image
+                : "/images/profile_photo.png"
+            }
           />
           <p className="text-xl font-medium">Selamat datang,</p>
           <p className="text-2xl font-bold">{user?.first_name}</p>

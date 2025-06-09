@@ -4,6 +4,7 @@ import balanceReducer from "../features/balance/balanceSlice";
 import modalReducer from "../features/modal/modalSlice";
 import toastReducer from "../features/toaster/toastSlice";
 import serviceReducer from "../features/service/serviceSlice";
+import userReducer from "../features/user/userSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         modal: modalReducer,
         toast: toastReducer,
         service: serviceReducer,
+        user: userReducer,
     }
 })
 
