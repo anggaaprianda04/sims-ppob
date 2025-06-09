@@ -69,15 +69,15 @@ const GenericModal = (props: Proptypes) => {
         className={`bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full transform transition-all duration-300 ${
           visible ? "opacity-100 scale-100" : "opacity-0 scale-95"
         }`}>
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center">
           <Image src={iconSrc} alt={type} width={60} height={60} />
-          <p className="text-gray-700">{title}</p>
+          <p className="text-gray-700 mt-4">{title}</p>
+          <p className="text-gray-500 text-lg mt-2 mb-2">{message}</p>
           {amount !== undefined && (
             <h2 className="text-2xl font-bold text-black">
               Rp{amount.toLocaleString("id-ID")}
             </h2>
           )}
-          <p className="text-gray-500 text-sm">{message}</p>
           <div className="flex flex-col gap-2 mt-4 w-full">
             {redirectHome && (
               <button

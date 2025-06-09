@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import balanceReducer from "../features/balance/balanceSlice";
 import modalReducer from "../features/modal/modalSlice";
-import toastReucer from "../features/toaster/toastSlice";
+import toastReducer from "../features/toaster/toastSlice";
+import serviceReducer from "../features/service/serviceSlice";
 
 export const store = configureStore({
     reducer: {
         balance: balanceReducer,
         modal: modalReducer,
-        toast: toastReucer,
+        toast: toastReducer,
+        service: serviceReducer,
     }
 })
 

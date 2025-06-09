@@ -11,6 +11,7 @@ interface Proptypes {
   errorMessage?: string;
   value?: string | number;
   onChange?: () => void;
+  readonly?: boolean;
 }
 
 const Input = (props: Proptypes) => {
@@ -25,6 +26,7 @@ const Input = (props: Proptypes) => {
     errorMessage = "",
     value = "",
     onChange,
+    readonly = false,
   } = props;
 
   const isPassword = type === "password";
@@ -40,6 +42,7 @@ const Input = (props: Proptypes) => {
         }`}>
         <span className="text-gray-400 mr-2">{icon}</span>
         <input
+          readOnly={readonly}
           name={name}
           type={inputType}
           placeholder={placeholder}

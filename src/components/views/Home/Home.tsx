@@ -3,13 +3,27 @@ import UseHome from "./useHome";
 import CardService from "@/components/commons/CardService";
 import { IBanner, IInformation } from "@/types/Information";
 import CardBanner from "@/components/commons/CardBanner";
-import { useAppSelector } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import CardHeader from "@/components/commons/CardHeader/CardHeader";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { setSelectedService } from "@/features/service/serviceSlice";
 
 const Home = () => {
   const { dataService, dataBanner } = UseHome();
   const balance = useAppSelector((state) => state.balance.value);
+  const dispatch = useAppDispatch();
+
+  const handleClick = (item: IInformation) => {
+    dispatch(
+      setSelectedService({
+        service_code: item.service_code,
+        service_name: item.service_name,
+        service_icon: item.service_icon,
+        service_tariff: item.service_tariff,
+      })
+    );
+  };
 
   return (
     <MainLayout>
@@ -17,11 +31,12 @@ const Home = () => {
       <CardHeader valueBalance={balance as unknown as number} />
       <div className="container mx-auto mt-6 max-w-screen-2xl flex flex-wrap">
         {dataService?.map((item: IInformation) => (
-          <CardService
+          <Link
             key={item.service_code}
-            icon={item.service_icon}
-            title={item.service_name}
-          />
+            onClick={() => handleClick(item)}
+            href={`/transaction/${item.service_code}`}>
+            <CardService icon={item.service_icon} title={item.service_name} />
+          </Link>
         ))}
       </div>
       <div className="container mx-auto relative z-10 mt-8">

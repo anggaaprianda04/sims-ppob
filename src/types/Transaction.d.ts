@@ -6,4 +6,8 @@ interface ITopup {
     top_up_amount: number,
 }
 
-export type { IBalance, ITopup }
+interface ITransaction {
+    service_code: string,
+}
+
+export type { IBalance, ITopup, ITransaction }

@@ -1,9 +1,9 @@
 import environment from "@/config/environment";
 import instance from "@/libs/instance";
-import { ITopup } from "@/types/Transaction";
+import { ITopup, ITransaction } from "@/types/Transaction";
 
 const transactionServices = {
-    balance: (token: string) => instance.get(`${environment.API_URL}/balance`, {   // Menggunakan path relatif
+    balance: (token: string) => instance.get(`${environment.API_URL}/balance`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -13,6 +13,11 @@ const transactionServices = {
             Authorization: `Bearer ${token}`,
         },
     }),
+    transaction: (token: string, payload: ITransaction) => instance.post(`${environment.API_URL}/transaction`, payload, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
 };
 
 export default transactionServices;

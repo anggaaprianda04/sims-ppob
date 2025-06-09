@@ -11,4 +11,5 @@ interface IBanner {
     description: string,
 }
 
+
 export type { IInformation, IBanner }
