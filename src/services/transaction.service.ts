@@ -17,7 +17,14 @@ const transactionServices = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    })
+    }),
+    history: (token: string, params: string) => instance.get(`${environment.API_URL}/transaction/history/?${params}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    )
 };
 
 export default transactionServices;
