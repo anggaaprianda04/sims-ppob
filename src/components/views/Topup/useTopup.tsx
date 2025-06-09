@@ -18,7 +18,7 @@ const topupSchema = yup.object().shape({
     .max(1000000, "Maksimal top up Rp1.000.000"),
 });
 
-const UseTopup = () => {
+const useTopup = () => {
   const { data } = useSession();
   const user = data?.user as IUser;
   const dispatch = useDispatch();
@@ -94,4 +94,4 @@ const UseTopup = () => {
   };
 };
 
-export default UseTopup;
+export default useTopup;

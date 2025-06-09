@@ -5,10 +5,10 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { FaMoneyBillAlt } from "react-icons/fa";
-import UseTopup from "./useTopup";
 import CardTopup from "@/components/commons/CardTopup";
 import { openModal } from "@/features/modal/modalSlice";
 import { confirmRef } from "@/hooks/useModalConfirm";
+import useTopup from "./useTopup";
 
 const Topup = () => {
   const balance = useAppSelector((state) => state.balance.value);
@@ -21,9 +21,9 @@ const Topup = () => {
     handleTopup,
     watch,
     handleNominalClick,
-    // isPendingTopup,
+    isPendingTopup,
     // isSuccessTopup,
-  } = UseTopup();
+  } = useTopup();
 
   //   console.log("controle", );
 
@@ -71,7 +71,9 @@ const Topup = () => {
                   ); // simpan ke Redux
                 })}
                 disabled={
-                  !!errors.top_up_amount || watch("top_up_amount") === undefined
+                  !!errors.top_up_amount ||
+                  isPendingTopup ||
+                  watch("top_up_amount") === undefined
                 }
                 type="button">
                 Top Up

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { ILogin } from "@/types/Auth";
 import { useDispatch } from "react-redux";
 import { showToast } from "@/features/toaster/toastSlice";
+import { AxiosError } from "axios";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -51,11 +52,10 @@ const useLogin = () => {
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
-    onError: (error: Error) => {
-      console.log(error);
+    onError: (error: AxiosError) => {
       dispatch(showToast({ message: error.message, type: "error" }));
     },
-    onSuccess() {
+    onSuccess: () => {
       reset();
       router.push(callbackUrl);
       dispatch(showToast({ message: "Success Login", type: "success" }));

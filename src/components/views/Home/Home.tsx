@@ -1,16 +1,15 @@
 import MainLayout from "@/components/layouts/MainLayout";
-import UseHome from "./useHome";
 import CardService from "@/components/commons/CardService";
 import { IBanner, IInformation } from "@/types/Information";
 import CardBanner from "@/components/commons/CardBanner";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import CardHeader from "@/components/commons/CardHeader/CardHeader";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { setSelectedService } from "@/features/service/serviceSlice";
+import useHome from "./useHome";
 
 const Home = () => {
-  const { dataService, dataBanner } = UseHome();
+  const { dataService, dataBanner } = useHome();
   const balance = useAppSelector((state) => state.balance.value);
   const dispatch = useAppDispatch();
 
@@ -27,7 +26,6 @@ const Home = () => {
 
   return (
     <MainLayout>
-      <button onClick={() => signOut()}>keluar</button>
       <CardHeader valueBalance={balance as unknown as number} />
       <div className="container mx-auto mt-6 max-w-screen-2xl flex flex-wrap">
         {dataService?.map((item: IInformation) => (

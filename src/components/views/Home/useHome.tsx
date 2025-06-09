@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-const UseHome = () => {
+const useHome = () => {
   const [showBalance, setShowBalance] = useState(false);
   const { data } = useSession();
   const user = data?.user as IUser;
@@ -73,4 +73,4 @@ const UseHome = () => {
   };
 };
 
-export default UseHome;
+export default useHome;

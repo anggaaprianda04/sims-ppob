@@ -58,7 +58,9 @@ const Login = () => {
             />
           )}
         />
-        <Button type="submit">{isPendingLogin ? "Loading" : "Masuk"}</Button>
+        <Button disabled={isPendingLogin} type="submit">
+          {isPendingLogin ? "Loading" : "Masuk"}
+        </Button>
       </form>
 
       <p className="text-xs mt-5 text-gray-600">

@@ -7,7 +7,6 @@ const Navbar = () => {
   return (
     <nav className="bg-white border-b-2">
       <div className="max-w-screen-2xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo/Brand */}
         <Link href="/">
           <div className="flex items-center">
             <Image src="/images/logo.png" alt="logo" width={27} height={25} />
@@ -18,8 +17,8 @@ const Navbar = () => {
         </Link>
         <div className="flex gap-14">
           <ItemNavbar link="/topup" title="Top Up" />
-          <ItemNavbar title="Transaction" />
-          <ItemNavbar title="Akun" />
+          <ItemNavbar link="/history-transaction" title="Transaction" />
+          <ItemNavbar link="/account" title="Akun" />
         </div>
       </div>
     </nav>

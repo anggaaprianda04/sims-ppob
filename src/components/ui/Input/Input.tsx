@@ -12,6 +12,7 @@ interface Proptypes {
   value?: string | number;
   onChange?: () => void;
   readonly?: boolean;
+  label?: string;
 }
 
 const Input = (props: Proptypes) => {
@@ -27,21 +28,29 @@ const Input = (props: Proptypes) => {
     value = "",
     onChange,
     readonly = false,
+    label = "",
   } = props;
 
   const isPassword = type === "password";
   const inputType = isPassword && isVisible ? "text" : type;
 
   return (
-    <>
+    <div className={`w-full ${label && "flex flex-col gap-2"}`}>
+      {label && (
+        <label className="text-sm text-gray-700" htmlFor={label}>
+          {label}
+        </label>
+      )}
+
       <div
         className={`flex items-center border ${
           errorMessage ? "mb-2" : "mb-4"
-        } rounded-md px-3 py-2 w-full bg-white ${
+        } ${label} rounded-md px-3 py-2 w-full bg-white ${
           isInvalid ? "border-red-500" : "border-gray-300"
         }`}>
         <span className="text-gray-400 mr-2">{icon}</span>
         <input
+          autoComplete="off"
           readOnly={readonly}
           name={name}
           type={inputType}
@@ -103,7 +112,7 @@ const Input = (props: Proptypes) => {
           {errorMessage}
         </p>
       )}
-    </>
+    </div>
   );
 };
 
