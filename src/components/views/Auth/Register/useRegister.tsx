@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { IRegister } from "@/types/Auth";
 import membershipServices from "@/services/membership.service";
+import { useDispatch } from "react-redux";
+import { showToast } from "@/features/toaster/toastSlice";
+import { AxiosError } from "axios";
 
 const registerSchema = yup.object().shape({
   email: yup
@@ -31,6 +34,7 @@ const useRegister = () => {
     confirmPassword: false,
   });
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleVisiblePassword = (key: "password" | "confirmPassword") => {
     setVisiblePassword({
@@ -57,12 +61,13 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-    onError: (error: Error) => {
-      console.log(error);
+    onError: (error: AxiosError) => {
+      dispatch(showToast({ message: error.message, type: "error" }));
     },
-    onSuccess() {
+    onSuccess: () => {
       reset();
       router.push("/auth/login");
+      dispatch(showToast({ message: "Success Register", type: "success" }));
     },
   });
 
